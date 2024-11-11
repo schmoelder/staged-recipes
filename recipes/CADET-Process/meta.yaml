@@ -1,0 +1,57 @@
+{% set name = "CADET-Process" %}
+{% set version = "0.9.1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/fau-advanced-separations/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python >=3.10
+    - setuptools >=69
+    - wheel
+    - pip
+  run:
+    - python >=3.10
+    - addict ==2.3
+    - cadet >=4.4.0
+    - cadet-python >=0.14
+    - corner >=2.2.1
+    - diskcache >=5.4.0
+    - hopsy >=1.4.0
+    - joblib >=1.3.0
+    - numpy >=1.21
+    - matplotlib-base >=3.4
+    - numba >=0.55.1
+    - pathos >=0.2.8
+    - psutil >=5.9.8
+    - pymoo >=0.6
+    - scipy >=1.11
+
+test:
+  imports:
+    - CADETProcess
+    - examples
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/fau-advanced-separations/CADET-Process
+  summary: A Framework for Modelling and Optimizing Advanced Chromatographic Processes
+  license: GPL-3.0
+  license_file: LICENSE.md
+
+extra:
+  recipe-maintainers:
+    - schmoelder
